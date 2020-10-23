@@ -12,7 +12,7 @@
             android:id="@+id/pressBotton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Press the Button to Get Some SDOg to Watch"
+            android:text="@string/press_the_button_to_get_some_dog_to_watch"
             app:layout_constraintBottom_toTopOf="@+id/getDogs"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,18 +29,17 @@
             app:spanCount="2"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"/>
 
-
-
         <Button
             android:id="@+id/getDogs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorAccent"
             android:text="@string/get_some_dog_to_watch"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@color/colorAccent"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

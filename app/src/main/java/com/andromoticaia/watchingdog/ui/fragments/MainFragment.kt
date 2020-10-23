@@ -1,12 +1,12 @@
 package com.andromoticaia.watchingdog.ui.fragments
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.andromoticaia.watchingdog.AppDatabase
 import com.andromoticaia.watchingdog.R
 import com.andromoticaia.watchingdog.data.DataSource
 import com.andromoticaia.watchingdog.databinding.FragmentMainBinding
@@ -18,7 +18,8 @@ import com.andromoticaia.watchingdog.viewmodel.ViewModelMainFragment
 
 class MainFragment : Fragment() {
 
-    val viewmodel by viewModels<ViewModelMainFragment> {VMFactory(RepositoryImpl(DataSource()))  }
+    val viewmodel by viewModels<ViewModelMainFragment> {VMFactory(RepositoryImpl(DataSource(
+        AppDatabase.getDatabase(requireContext())!!)))  }
 
     lateinit var binding: FragmentMainBinding
 
@@ -48,8 +49,31 @@ class MainFragment : Fragment() {
             viewmodel.getData().observe(viewLifecycleOwner, Observer {
                 binding.rvDog.recycledViewPool.clear()
 
+
                 itemAdapter.submitList(it)
+
             })
+        }
+
+        setHasOptionsMenu(true)
+
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.mainmenu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+
+            R.id.favorites -> {
+                findNavController().navigate(R.id.action_mainFragment_to_favoritesDogFragment)
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
         }
 
 

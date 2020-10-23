@@ -8,15 +8,31 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.andromoticaia.watchingdog.ui.fragments.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        android:label="Watching Dog"
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_rigth" />
+        <action
+            android:id="@+id/action_mainFragment_to_favoritesDogFragment"
+            app:destination="@id/favoritesDogFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_button"
+            app:popEnterAnim="@anim/slide_in_botton"
+            app:popExitAnim="@anim/slide_out_top" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.andromoticaia.watchingdog.ui.fragments.DetailFragment"
-        android:label="fragment_detail"
+        android:label="Detail"
         tools:layout="@layout/fragment_detail" />
+    <fragment
+        android:id="@+id/favoritesDogFragment"
+        android:name="com.andromoticaia.watchingdog.ui.fragments.FavoritesDogFragment"
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favorites_dog" />
 </navigation>

@@ -9,11 +9,19 @@ class ViewModelMainFragment(private var repo:Repository) :ViewModel(){
 
     fun getData () = liveData {
 
-        val items = repo.getData()
-        val dogs = items.message.map {
-            Dog(imageURL = it, isFavorite = false, nickName = "")
+        try {
+
+            val items = repo.getData()
+            val dogs = items.message.map {
+                Dog(imageURL = it, isFavorite = false, nickName = "")
+            }
+            emit(dogs)
+
+        }catch (e:Exception){
+
         }
-        emit(dogs)
+
+
     }
 
 }
