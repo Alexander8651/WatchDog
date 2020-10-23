@@ -5,7 +5,7 @@ import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
-
+// donwlod the images from url to put in image view
 @BindingAdapter("imageURL")
 fun bindImage(imgView:ImageView, imgUrl:String){
 

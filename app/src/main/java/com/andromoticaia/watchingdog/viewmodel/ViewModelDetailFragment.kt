@@ -8,8 +8,8 @@ import kotlinx.coroutines.launch
 
 class ViewModelDetailFragment(private val repo:Repository):ViewModel() {
 
+    //send to favorites the new dog
     fun addDogToFavorites(dog:Dog){
-
         viewModelScope.launch {
             repo.addDogToFavorites(dog)
         }

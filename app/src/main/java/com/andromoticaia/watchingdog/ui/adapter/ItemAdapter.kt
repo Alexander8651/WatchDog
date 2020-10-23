@@ -39,6 +39,7 @@ class ItemAdapter :  ListAdapter<Dog, ItemAdapter.ViewHolder>(DogDiffCallback())
             binding.dog = item
             binding.executePendingBindings()
 
+            //verify if the nickname exist
             if (item.nickName == ""){
                 binding.nickName.visibility = View.INVISIBLE
             }else{
@@ -48,16 +49,24 @@ class ItemAdapter :  ListAdapter<Dog, ItemAdapter.ViewHolder>(DogDiffCallback())
 
             itemView.setOnClickListener{
 
+                //if the dog it is not a favorite can navigate to detail
                 if (!item.isFavorite){
+
+                    //add bundle
                     val dog = Bundle()
                     dog.putParcelable("dog", item)
+
+                    //navigate to detail and add the item
                     it.findNavController().navigate(R.id.action_mainFragment_to_detailFragment, dog)
                 }else if (item.isFavorite){
 
+                    //show the alert dialog if the click the dog in the favorites fragment
                     messageFactory.getDialog(itemView.context,TYPE_DELETE_DOG_FROMFAVORITES
                         )
                         .setMessage("¿Do you want delete the dog ${item.nickName}?" )
                         .setPositiveButton("Accept"){ dialog, wich ->
+
+                            // send the item to data source
                         DataSource(AppDatabase.getDatabase(itemView.context)!!).deleteDog(item)
 
                     }.show()
@@ -69,6 +78,8 @@ class ItemAdapter :  ListAdapter<Dog, ItemAdapter.ViewHolder>(DogDiffCallback())
         }
 
         companion object{
+
+            // return the viewholder
             fun from(parent: ViewGroup):ViewHolder{
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ItemBinding.inflate(layoutInflater, parent, false)
@@ -77,6 +88,7 @@ class ItemAdapter :  ListAdapter<Dog, ItemAdapter.ViewHolder>(DogDiffCallback())
         }
     }
 
+    //verify the items if someone change or delete
     class DogDiffCallback :DiffUtil.ItemCallback<Dog>(){
         override fun areItemsTheSame(oldItem: Dog, newItem: Dog): Boolean {
             return oldItem.imageURL == newItem.imageURL

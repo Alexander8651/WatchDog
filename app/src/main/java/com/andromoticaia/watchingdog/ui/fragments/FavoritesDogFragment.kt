@@ -19,11 +19,14 @@ import com.andromoticaia.watchingdog.viewmodel.ViewModelFavoritesFragment
 
 class FavoritesDogFragment : Fragment() {
 
+    //declared and init the viewmodel with viewmodel factory
     val viewmodel by viewModels<ViewModelFavoritesFragment> {VMFactory(RepositoryImpl(DataSource(
         AppDatabase.getDatabase(requireContext())!!)))  }
 
+    //declare the binding
     lateinit var binding:FragmentFavoritesDogBinding
 
+    //declare the favorites adapter
     lateinit var favoritesAdapter: ItemAdapter
 
     override fun onCreateView(
@@ -37,15 +40,21 @@ class FavoritesDogFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //init the binding
         binding = FragmentFavoritesDogBinding.bind(view)
 
+        //init the adapter
         favoritesAdapter = ItemAdapter()
 
+        //add adapter to recycler view
         binding.rvFavorites.apply {
             adapter = favoritesAdapter
         }
 
+        //observe the data in the favorites table
         viewmodel.favoritesDogs.observe(viewLifecycleOwner, Observer {
+
+            //send the data to the adapter
             favoritesAdapter.submitList(it)
         })
     }

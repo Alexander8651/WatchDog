@@ -7,10 +7,9 @@ import com.andromoticaia.watchingdog.domain.Repository
 
 class ViewModelMainFragment(private var repo:Repository) :ViewModel(){
 
+    //get data from api
     fun getData () = liveData {
-
         try {
-
             val items = repo.getData()
             val dogs = items.message.map {
                 Dog(imageURL = it, isFavorite = false, nickName = "")
@@ -18,10 +17,7 @@ class ViewModelMainFragment(private var repo:Repository) :ViewModel(){
             emit(dogs)
 
         }catch (e:Exception){
-
         }
-
-
     }
 
 }

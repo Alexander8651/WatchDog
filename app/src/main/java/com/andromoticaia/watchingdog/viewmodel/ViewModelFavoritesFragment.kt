@@ -6,5 +6,6 @@ import com.andromoticaia.watchingdog.domain.Repository
 
 class ViewModelFavoritesFragment(private val repo:Repository):ViewModel() {
 
+    // cast the coroutine flow as live data
     var favoritesDogs = repo.getFavoritesDogs().asLiveData()
 }

@@ -17,19 +17,23 @@ import com.andromoticaia.watchingdog.viewmodel.ViewModelMainFragment
 
 class MainActivity : AppCompatActivity() {
 
+    //declare appconfiguration
     lateinit var appBarConfiguration: AppBarConfiguration
+
+    //declare navCOntroller
     lateinit var navController:NavController
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        //ini navController
         navController = findNavController(R.id.fragmentNavigation)
 
-
+        //set the action
         NavigationUI.setupActionBarWithNavController(this, navController)
 
+        //init the appbarconfiguration
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
 

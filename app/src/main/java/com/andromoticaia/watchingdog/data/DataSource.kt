@@ -8,18 +8,22 @@ import kotlinx.coroutines.flow.Flow
 
 class DataSource(private val appDatabase: AppDatabase){
 
+    //get data from api
     suspend fun getData():ResponseData{
         return RetrofitClient.webService.getDogToWatch().await()
     }
 
+    //add dog to favorites in room
     suspend fun addDogToFavorites(dog: Dog){
         appDatabase.dogDao().addDogToFavorite(dog )
     }
 
+    //get all favorites from room
     fun getFavoritesDogs(): Flow<List<Dog>>{
         return appDatabase.dogDao().getFavoritesDogs()
     }
 
+    //delete the dog selected from room
     fun deleteDog(dog:Dog){
         appDatabase.dogDao().deleteDog(dog)
 

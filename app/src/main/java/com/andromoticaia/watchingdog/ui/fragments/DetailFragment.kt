@@ -22,16 +22,22 @@ import com.bumptech.glide.Glide
 
 class DetailFragment : Fragment() {
 
+    //declare the dog
     lateinit var dog:Dog
+
+    //declare the binding
     lateinit var binding: FragmentDetailBinding
 
     val messageFactory = MessageFactory()
 
+    //declare and init the viewmodel with the vmfactory
     val viewmodel by viewModels<ViewModelDetailFragment> { VMFactory(RepositoryImpl(DataSource(
         AppDatabase.getDatabase(requireContext())!!))) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //get the parcelable from adapter
         arguments?.let {
 
             dog = it.getParcelable("dog")!!
@@ -52,37 +58,51 @@ class DetailFragment : Fragment() {
         //init the binding
         binding = FragmentDetailBinding.bind(view)
 
+        //call functions
         putImage()
-
         addNickName()
 
 
     }
 
+    //put image in the view
     fun putImage(){
         Glide.with(requireContext())
             .load(dog.imageURL)
             .into(binding.imageView)
     }
 
+    // verify and add the nickname
     fun addNickName(){
         val nickName = binding.addnickname.text
 
         binding.button.setOnClickListener {
+
             if (nickName.isNullOrEmpty()){
+
+                //show dialog if the edittext is nullorenpty
                 messageFactory.getDialog(requireContext(),TYPE_DONT_NICKNAME_WRITTEN).show()
             }else{
+
+                //create the new dog
                 dog = Dog(imageURL = dog.imageURL, isFavorite = true, nickName = nickName.toString())
+
                 addDogToFavorite(dog)
             }
         }
 
     }
 
+    //send the dog to favorites
     fun addDogToFavorite(dog:Dog){
 
+        // send dog to viewmodel
         viewmodel.addDogToFavorites(dog)
+
+        //show toast
         Toast.makeText(requireContext(), "Just added a new dog to favorites", Toast.LENGTH_SHORT).show()
+
+        //navigate up the view to th wmain
         findNavController().navigateUp()
 
     }

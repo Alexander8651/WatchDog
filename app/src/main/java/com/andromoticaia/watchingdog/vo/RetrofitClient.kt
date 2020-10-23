@@ -9,14 +9,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 const val ROOT = "https://dog.ceo/api/breeds/image/"
 
+//intercept the response and request
 val interceptor:HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
     this.level = HttpLoggingInterceptor.Level.BODY
 }
 
+//client to intercept the http request
 val cliente:OkHttpClient = OkHttpClient.Builder().apply {
     this.addInterceptor(interceptor)
 }.build()
 
+
+//object of retrofit client
 object RetrofitClient {
 
     val webService by lazy {
