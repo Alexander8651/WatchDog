@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">WatchingDog</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="get_some_dog_to_watch">Get some Dog to Watch</string>
+</resources>
